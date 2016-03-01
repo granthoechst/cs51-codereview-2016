@@ -6,12 +6,14 @@ let rec contains_var (e: expression) : bool =
 	match e with
 	| Var -> true
 	| Binop(n, a, b) ->
-		if (contains_var a = false)
+		(if (contains_var a = false)
 		then contains_var b
-		else true
-	| Unop(x, c) -> if contains_var c = true then true else false
+		else true)
+	| Unop(x, c) -> contains_var c
 	| _ -> false
 ;;
+
+
 
 (*** Example 1: Solution Code ***)
 let rec contains_var (e : expression) : bool =
@@ -21,6 +23,9 @@ let rec contains_var (e : expression) : bool =
 	| Unop(_, c) -> contains_var c
 	| _ -> false
 ;;
+
+
+
 (*** End Example 1 Solution Code ***)
 
 let rec evaluate (e:expression) (x:float) : float =

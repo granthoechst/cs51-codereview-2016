@@ -24,19 +24,6 @@ let average a = sum a /. count a;;
    for a list. 
 *)
 
-(* [4;5;7] *)
-
-let average1 a = 
-	let rec sum_count lst : (float * int) =
-		match lst with 
-		| [] -> (0.0, 0)
-		| head :: tail ->
-		let (cur_sum, cur_count) = sum_count tail in
-			(head +. cur_sum, 1 + cur_count)
-	in
-	let sum, count = sum_count a in sum /. (float count)
-
-
 let square x = x *. x;;
 
 let rec ssqd (a : float list) (b : float) : float =
@@ -46,7 +33,7 @@ let rec ssqd (a : float list) (b : float) : float =
 ;;
 
 let variance1a a =
-	let mu = average1 a in
+	let mu = average a in
 	let diff = ssqd a mu in
 	let n = count a in
 		(1. /. (n -. 1.)) *. diff
@@ -106,18 +93,6 @@ let variance3 (lst : float list) : float option =
 (* Example 1 Exercise 2: *)
 (* Replace the code from example 2 to use the Ocaml H.O.F *)
 open List;;
-
-let variance4 (lst : float list) :float option =
-	let n = List.length lst in
-	if n < 2 then None
-	else
-		let summate = (fun x -> List.fold_right (+.) x 0.) in
-		let sum = summate lst in
-		let mean = sum /. (float n) in
-		let result =(1. /. (float (n - 1))) *.
-			(summate (List.map (fun x -> (x -. mean) ** 2.) lst)) in 
-			Some result
-
 
 (* Example 2 *)
 

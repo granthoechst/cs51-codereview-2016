@@ -2,10 +2,12 @@
 (* Contains var examples *)
 
 (*** Example 1: Deoptionalize ***)
-
-let deoptionalize = map ???
-
 (*
+let deoptionalize (lst : 'a option list) : 'a list =
+	List.map (fun x -> match x with
+						| Some y -> y
+						| None -> failwith "")
+*)
 
 let deoptionalize0 (lst: 'a option list) : 'a list =
 	let filter (num : 'a option) : bool =
@@ -19,13 +21,13 @@ let deoptionalize0 (lst: 'a option list) : 'a list =
 	List.map conversion filtered_lst
 ;;
 
-(*
+
 
 let deoptionalize1 (lst:'a option list) : 'a list =
 	List.map (fun x-> match x with | Some n -> n)
 			 (List.filter (fun x-> x <> None) lst);;
 
-(*
+
 
 let deoptionalize2 (lst:'a option list) : 'a list =  
 	let filter (num : 'a option) : bool =
@@ -40,7 +42,6 @@ let deoptionalize2 (lst:'a option list) : 'a list =
 	List.map conversion filtered_lst
 ;;
 
-(*
 
 let deoptionalize3 (lst:'a option list) : 'a list = 
 	List.map (fun x ->
@@ -49,13 +50,22 @@ let deoptionalize3 (lst:'a option list) : 'a list =
 		| None -> failwith "Got None!")
 	(List.filter (fun x -> x <> None) lst);;
 
-(*
+
+
+
+
+
+
 
 let deoptionalize4 (lst: 'a option list) : 'a list = 
 	List.fold_right (fun x acc -> match x with
 									| Some n -> n::acc
-									| None -> acc) lst []
+									| None -> acc) 
+	lst []
 ;;
+
+
+
 
 
 
