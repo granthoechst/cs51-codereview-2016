@@ -66,3 +66,17 @@ let merge (s1 : int stream) (s2 : int stream) : int stream =
 	 merge_help s1 s2 frst
 ;;
 
+
+let merge (s1:int stream) (s2:int stream) : int stream =
+  	let rec helper (s1:int stream) (s2:int stream) (v:int) : int stream =
+    	let (Cons(v1,t1),Cons(v2,t2)) = (s1,s2) in
+      	if v1 < v2 then
+	if v1 = v then helper (Lazy.force t1) s2 v
+	else Cons(v1, lazy(helper (Lazy.force t1) s2 v1))
+      else
+	if v2 = v then helper s1 (Lazy.force t2) v
+	else Cons(v2, lazy(helper s1 (Lazy.force t2) v2)) in
+  	let (Cons(v1,_),Cons(v2,_)) = (s1,s2) in
+  	let v = (min v1 v2) - 1 in
+    	helper s1 s2 v
+	;;
